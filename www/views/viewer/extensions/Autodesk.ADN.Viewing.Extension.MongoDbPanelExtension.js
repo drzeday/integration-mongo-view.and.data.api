@@ -40,7 +40,7 @@ Autodesk.ADN.Viewing.Extension.MongoDbPanel = function (viewer) {
         Autodesk.Viewing.Extensions.ViewerPropertyPanel.prototype.setProperties.call(
             _self, properties);
 
-        this.viewer.getPropertyValue(_self.selectedNodeId, "SAPProductId",
+        this.viewer.getPropertyValue(_self.selectedNodeId, "ProductId",
 
             function (productId) {
 

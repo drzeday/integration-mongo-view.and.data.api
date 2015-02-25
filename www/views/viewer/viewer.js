@@ -80,7 +80,7 @@ angular.module('Autodesk.ADN.AngularView.View.Viewer',
 
                                 $scope.viewer.getPropertyValue(
                                     component.dbId,
-                                    "SAPProductId",
+                                    "ProductId",
                                     function (productId) {
 
                                         var url = 'http://' + window.location.host +

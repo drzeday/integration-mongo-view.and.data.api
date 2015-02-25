@@ -91,7 +91,7 @@ Autodesk.ADN.Viewing.Extension.PieChart = function (viewer, options) {
 
                         _viewer.getPropertyValue(
                             component.dbId,
-                            "SAPProductId",
+                            "ProductId",
                             function (productId) {
 
                                 if (!_productsMap[productId]) {
