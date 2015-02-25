@@ -15,7 +15,7 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 ///////////////////////////////////////////////////////////////////////////////
-AutodeskNamespace("Autodesk.ADN.Viewing.Extension.Statistics.SAP");
+AutodeskNamespace("Autodesk.ADN.Viewing.Extension");
 
 Autodesk.ADN.Viewing.Extension.PieChart = function (viewer, options) {
 
@@ -53,7 +53,7 @@ Autodesk.ADN.Viewing.Extension.PieChart = function (viewer, options) {
     ///////////////////////////////////////////////////////////////////////////
     _self.unload = function () {
 
-        console.log('Autodesk.ADN.Viewing.Extension.Statistics.SAP unloaded');
+        console.log('Autodesk.ADN.Viewing.Extension.PieChart unloaded');
 
         $('#overlayPieDivId').remove();
 
