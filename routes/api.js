@@ -62,7 +62,7 @@ router.get('/product/:productId', function (req, res) {
 
     var productId = req.params.productId;
 
-    db.collection('invproducts', function (err, collection) {
+    db.collection(config.productsCollection, function (err, collection) {
 
         collection.findOne(
 
@@ -92,7 +92,7 @@ router.post('/product/:id', function (req, res) {
 
     item._id = new BSON.ObjectID(id);
 
-    db.collection('invproducts', function (err, collection) {
+    db.collection(config.productsCollection, function (err, collection) {
         collection.update(
             { '_id': new BSON.ObjectID(id) },
             item,

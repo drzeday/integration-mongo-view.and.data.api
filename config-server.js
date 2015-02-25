@@ -9,5 +9,6 @@ config.pass = 'password';
 config.host = 'host-name';
 config.port = 30600;
 config.db = 'database';
+config.productsCollection = 'collection-name';
 
 module.exports = config;
