@@ -1,0 +1,14 @@
+{
+  "name": "AdnMongoView",
+
+    "version": "0.0.0",
+
+  "dependencies": {
+    "serve-favicon": "*",
+    "body-parser": "*",
+    "express": "*",
+    "request": "*",
+    "mongodb": "*",
+    "util": "*"
+  }
+}
