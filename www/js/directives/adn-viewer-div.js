@@ -33,9 +33,9 @@ angular.module('Autodesk.ADN.AngularView.Directive.ViewerDiv', []).
                 new Autodesk.ADN.Toolkit.Viewer.AdnViewerManager(
                     $attributes.url,
                     $element[0],
-                    ($attributes.hasOwnProperty('environment') ?
-                        $attributes.environment :
-                        'AutodeskProduction'));
+                    ($attributes.hasOwnProperty('config') ?
+                        $attributes.config :
+                        {}));
 
             $attributes.$observe('urn', function(urn) {
 

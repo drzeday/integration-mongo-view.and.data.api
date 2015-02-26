@@ -51,6 +51,8 @@ angular.module('Autodesk.ADN.AngularView.View.Viewer',
         ['$scope', '$http', 'uiGridConstants', function(
             $scope, $http, uiGridConstants) {
 
+            $scope.staging = false;
+
             ///////////////////////////////////////////////////////////////////
             //
             //
