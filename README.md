@@ -25,12 +25,10 @@ Install dependencies before running the app by running "npm install" command fro
 * Upload a model using instructions from the [API documentation](http://developer.api.autodesk.com/documentation/v1/vs/vs_quick_start.html#vs-api-quick-start)
 * Alternatively you can use one of our tools, for example: [LMV Quick Start Guide](https://fast-shelf-9177.herokuapp.com/)
 * Once you have translated successfully your model, place its URN in config-client.js
-* You will need to be able to connect to a mongodb database, populated with products matching the "ProductId" of your model
-* The required fields on a product are: {ProductId, Name, SuplierName, Description, Currency, Price}
-* For the online demo, I used [mongolab](https://mongolab.com/), they provide a free tier. So you will have to sign up and create a database
-* Populate the "config-server.js" file with database access information
+* This sample is using a sample mongodb hosted on [mongolab](https://mongolab.com/) which matches the model seat.dwf. [Mongolab](https://mongolab.com/) provides a free tier.
+* You need to change to your own mongo database if you are using different models. Go to config-server.js, replace the access information of your mongoDb, you will need to be able to connect to a mongodb database, populated with products matching the "ProductId" of your model. The required fields on a product are: {ProductId, Name, SuplierName, Description, Currency, Price}
 * Run the server: "node server.js" from command line
-* Connect to server locally using a WebGL-compatible browser: http://localhost:3000/node/mongo
+* Connect to server locally using a WebGL-compatible browser: http://localhost:3000/node/mongo. You need a internet connection if you are using [mongolab](https://mongolab.com/) as database hoster.
 
 ## Online demo
 
