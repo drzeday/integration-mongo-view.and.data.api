@@ -65,9 +65,9 @@ Autodesk.ADN.Viewing.Extension.Treeview = function (viewer, options) {
                     var rootNode = createNode(
                         treeRef,
                         '#',
-                        rootComponent);
+                        rootComponent.root);
 
-                    buildTreeRec(treeRef, rootNode, rootComponent);
+                    buildTreeRec(treeRef, rootNode, rootComponent.root);
 
                     $(_treeId).jstree("open_node", rootNode);
                 });
