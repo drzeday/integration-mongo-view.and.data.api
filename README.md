@@ -3,6 +3,7 @@
 
 ##Description
 
+Verified on v1.2.15  - June 4th 2015
 
 That sample demonstrates how to integrate MongoDb with the Autodesk View & Data API using a Node.js server and a AngularJs-based client
 
