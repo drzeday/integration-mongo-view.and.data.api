@@ -1,5 +1,4 @@
 node_modules/
 build/
-config-server.js
-credentials.js
 www/lib/bower_components
+
