@@ -2,6 +2,14 @@
  * Created by leefsmp on 2/19/15.
  */
 
-var config = {};
+var configClient = {
+  host: '/node/mongo',
+  viewAndDataUrl: 'https://developer.api.autodesk.com'
+}
 
-config.defaultUrn = "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWRuLTEzLjAyLjIwMTUtMTUuMjIuNDgvc2VhdC5kd2Z4"
+configClient.ApiURL = "http://" +
+  window.location.host +
+  configClient.host +
+  '/api';
+
+module.exports = configClient;

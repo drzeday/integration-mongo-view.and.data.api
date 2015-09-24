@@ -17,46 +17,94 @@
 ///////////////////////////////////////////////////////////////////////////////
 'use strict';
 
+require("./ui/views/viewer/viewer");
+
+require("./directives/spinning-img-directive");
+require("./directives/viewer-directive");
+
+require("./services/view.and.data-service");
+
+require("./ui/dialogs/navbar/navbar");
+require("./ui/dialogs/about/about");
+
+var configClient = require("./config-client");
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 //
 ///////////////////////////////////////////////////////////////////////////////
-var AdnViewerApp = angular.module('Autodesk.ADN.AngularView.Main',
-    [
-        'ngRoute',
-        'ui.bootstrap',
-        'ui.layout',
-        'ui-layout-events',
-        'mgcrea.ngStrap',     //AngularStrap
-        'ngMdIcons',
-        'Autodesk.ADN.AngularView.View.Viewer',
-        'Autodesk.ADN.AngularView.Directive.SpinningImg',
-        'Autodesk.ADN.AngularView.Dialog.Navbar'
-    ])
+angular.module('ui-layout-events', [
+    'ui.layout'
+])
+  .directive('uiLayout', function($timeout, $rootScope) {
 
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    //
-    ///////////////////////////////////////////////////////////////////////////
-    .controller('Autodesk.ADN.AngularView.Main.Controller', function($scope) {
+      var methods = ['updateDisplay',
+            'toggleBefore',
+            'toggleAfter',
+            'mouseUpHandler',
+            'mouseMoveHandler'],
+        timer;
 
-        $scope.staging = false;
+      function fireEvent() {
+          if(timer) $timeout.cancel(timer);
+          timer = $timeout(function() {
+              $rootScope.$broadcast('ui.layout.resize');
+              timer = null;
+          }, 0);
+      }
 
-        var url =  "http://" +
-            window.location.host +
-            '/node/mongo/api/token';
+      return {
+          restrict: 'AE',
+          require: '^uiLayout',
+          link: function(scope, elem, attrs, uiLayoutCtrl) {
+              angular.forEach(methods, function(method) {
+                  var oldFn = uiLayoutCtrl[method];
+                  uiLayoutCtrl[method] = function() {
+                      oldFn.apply(uiLayoutCtrl, arguments);
+                      fireEvent();
+                  };
+              });
+          }
+      };
+  });
 
-        $scope.viewDataClient =
-            new Autodesk.ADN.Toolkit.ViewData.AdnViewDataClient(
-                'https://developer.api.autodesk.com',
-                url);
-    })
+///////////////////////////////////////////////////////////////////////////////
+//
+//
+///////////////////////////////////////////////////////////////////////////////
+angular.module('Autodesk.ADN.Mongo.Main',
+  [
+      'ngRoute',
+      'ui.bootstrap',
+      'ui.layout',
+      'ui-layout-events',
+      'Autodesk.ADN.Mongo.View.Viewer',
+      'Autodesk.ADN.Mongo.Dialog.Navbar',
+      'Autodesk.ADN.Toolkit.UI.Directive.SpinningImg',
+      'Autodesk.ADN.Toolkit.ViewData.Service.ViewAndData'
+  ])
 
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    //
-    ///////////////////////////////////////////////////////////////////////////
-    .config(['$routeProvider', function ($routeProvider)
-    {
-        $routeProvider.otherwise({redirectTo: '/viewer'});
-    }]);
+///////////////////////////////////////////////////////////////////////////
+//
+//
+///////////////////////////////////////////////////////////////////////////
+  .config(['$routeProvider', 'ViewAndDataProvider',
+      function ($routeProvider, ViewAndDataProvider) {
+
+          ViewAndDataProvider.setTokenUrl(
+            configClient.ApiURL + '/token');
+
+          $routeProvider.otherwise({redirectTo: '/viewer'});
+      }])
+
+///////////////////////////////////////////////////////////////////////////
+//
+//
+///////////////////////////////////////////////////////////////////////////
+  .controller('Autodesk.ADN.Mongo.Main.Controller', function($scope) {
+
+    $scope.$on('app.EmitMessage', function (event, data) {
+
+      $scope.$broadcast(data.msgId, data.msgArgs);
+    });
+  });

@@ -1,0 +1,111 @@
+
+<div>
+
+    <div id="main-container" ui-layout options="{ flow:'row', dividerSize: 0.01}"
+        style="height: 1200px; position: relative;">
+
+        <div ui-layout-container size="700px" style="background-color: rgb(180, 206, 215);">
+
+            <div ui-layout="{flow : 'column', dividerSize: 8}" style="height: 700px">
+
+                <div ui-layout-container size="30%">
+
+                    <div ui-layout="{flow : 'row', dividerSize: 8}" >
+
+                        <div ui-layout-container size="40%">
+
+                          <!--=================== Search Group ===================-->
+                          <div class="input-group" style="width:100%; border: 3px solid #E1E1E1;">
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Search Models ..."
+                                   aria-describedby="basic-addon1"
+                                   ng-model="modelsFilterValue">
+                          </div>
+
+                          <!--=================== Model List ===================-->
+                          <ul id="modelList" class="col-lg-12" style="overflow: scroll; margin:0;">
+                            <li ng-repeat="model in models | filter: searchFilter | orderBy:'name'" style="list-style-type: none; margin:0;">
+                              <a href="" ng-click="onModelSelected(model)" style="color: #464646">
+                                <div class="row" style="{{['', 'background-color:rgba(21, 121, 128, 0.75);'][$index %2]}}">
+                                  <div class="col-md-3" style="margin-top: 15px; margin-bottom: 15px;">
+                                    <img class="img-responsive"
+                                         ng-src={{model.thumbnail}}
+                                         width="128"
+                                         height="128"
+                                         style="border: 1px solid; border-radius: 15px;">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <h3 style="margin-top: 30px;">{{model.name}}</h3>
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                          </ul>
+
+                        </div>
+
+
+                        <div id="tree-container" ui-layout-container size="60%">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div ui-layout-container size="70%">
+
+                    <adn-viewer-container
+                          url="{{tokenUrl}}"
+                          urn="{{selectedModel.urn}}"
+                          config="{{viewerContainerConfig}}"
+                          on-viewer-factory-initialized="onViewerFactoryInitialized(factory)"
+                          on-viewable-path="onViewablePath(pathInfoCollection)"
+                          ng-style="{'width':'100%', 'height': '700px'}">
+
+                      <div ng-repeat= "path in selectedPath" style="width:100%; height: 100%;">
+                        <adn-viewer style="height: 700px"
+                            path="{{path}}"
+                            config="{{viewerConfig}}"
+                            on-destroy="onDestroy(viewer)"
+                            on-path-loaded="onPathLoaded(viewer, path)"
+                            on-viewer-initialized="onViewerInitialized(viewer)"
+                            ng-style="{'width':'100%', 'height': '700px'}">
+                        </adn-viewer>
+                      </div>
+
+                    </adn-viewer-container>
+
+                </div>
+
+            </div>
+        </div>
+
+      <div ui-layout-container>
+
+          <div class="data-grid" style="height: 100%">
+
+            <div ui-grid="gridOptions"
+                 ui-grid-edit
+                 ui-grid-resize-columns
+                 ui-grid-move-columns
+                 ui-grid-pinning
+                 ui-grid-selection
+                 ui-grid-exporter
+                 ui-grid-auto-resize
+                 style="height: 100%">
+
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+  <div class="footer">
+    &nbsp;<b><i>Autodesk Developer Network - 2015</i></b>
+  </div>
+
+</div>
+

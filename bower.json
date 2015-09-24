@@ -1,0 +1,29 @@
+{
+  "name": "mongo-db",
+
+  "devDependencies": {
+    "jquery":                 "2.1.4",
+    "angular":                "1.3.15",
+    "angular-resource":       "1.3.15",
+    "angular-route":          "1.3.15",
+    "angular-bootstrap":      "0.12.0",
+    "angular-material-icons": "0.4.0",
+    "angular-sanitize":       "1.3.15",
+    "angular-strap":          "2.1.6",
+    "angular-tree-control":   "0.2.8",
+    "angular-ui":             "0.4.0",
+    "angular-ui-grid":        "3.0.4",
+    "angular-ui-layout":      "1.0.5",
+    "angular-http-batcher":   "1.11.3",
+    "bootstrap":              "3.3.2",
+    "bootstrap-select":       "1.6.4",
+    "bootstrap-social":       "4.9.0",
+    "lodash":                 "3.8.0",
+    "requirejs":              "2.1.17",
+    "view-and-data-toolkit":  "*"
+  },
+
+  "resolutions": {
+    "angular": "1.3.15"
+  }
+}

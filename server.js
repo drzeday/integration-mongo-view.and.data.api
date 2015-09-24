@@ -15,20 +15,46 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////////////////
+var credentials = require('./config/credentials');
+var ViewAndDataClient = require('./routes/view-and-data-client');
+
+var viewAndDataClient = new ViewAndDataClient(
+  credentials.BaseUrl,
+  credentials.ConsumerKey,
+  credentials.SecretKey);
+
+var dbConnector = require('./routes/dbConnector');
+var config = require('./config/config-server');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
-var api = require('./routes/api');
 var express = require('express');
 
 var app = express();
 
-app.use('/node/mongo', express.static(__dirname + '/www'));
+app.use(config.host, express.static(__dirname + '/www'));
 app.use(favicon(__dirname + '/www/resources/img/favicon.ico'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false, limit: '500mb' }));
+app.use(bodyParser.json({limit: '500mb'}));
 
-app.use('/node/mongo/api', api);
+var connector = new dbConnector(config);
+
+connector.initializeDb(
+
+  function(db){
+
+      app.use(config.host + '/api/materials', require('./routes/api/materials')(db));
+      app.use(config.host + '/api/models', require('./routes/api/models')(db));
+
+      viewAndDataClient.onInitialized(function() {
+
+          app.use(config.host + '/api/token', require('./routes/api/token')(viewAndDataClient));
+      });
+
+  }, function(error) {
+
+      console.log(error);
+  });
 
 app.set('port', process.env.PORT || 3000);
 
